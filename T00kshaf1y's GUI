@@ -191,7 +191,7 @@ TextButton_12.LayoutOrder = 10
 TextButton_12.Position = UDim2.new(0.749084115, 0, 0.21725063, 0)
 TextButton_12.Size = UDim2.new(0, 136, 0, 50)
 TextButton_12.Font = Enum.Font.SourceSans
-TextButton_12.Text = "idk2"
+TextButton_12.Text = "Empty"
 TextButton_12.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_12.TextSize = 18.000
 
@@ -2079,7 +2079,7 @@ local function DNZIPVJ_fake_script() -- TextButton_20.LocalScript
 		local ReplicatedStorage = game:GetService("ReplicatedStorage")
 		local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandSilent
 	
-		RequestCommand:InvokeServer(";fogcolor black")
+		RequestCommand:InvokeServer(";fogcolor cyan")
 		wait(0.25)
 		local player = game.Players.LocalPlayer
 		local char = player.Character
