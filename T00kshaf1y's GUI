@@ -1430,7 +1430,7 @@ local function MNMPXGP_fake_script() -- TextButton_12.LocalScript
 		local ReplicatedStorage = game:GetService("ReplicatedStorage")
 		local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandSilent
 	
-		RequestCommand:InvokeServer(";music 113158802785741 ;pitch 0.1 ;volume inf)
+		RequestCommand:InvokeServer(";music 113158802785741 ;pitch 0.1 ;volume inf")
 	end)
 end
 coroutine.wrap(MNMPXGP_fake_script)()
