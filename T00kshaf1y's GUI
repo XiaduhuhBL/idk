@@ -179,7 +179,7 @@ TextButton_11.LayoutOrder = 10
 TextButton_11.Position = UDim2.new(0.749084234, 0, 0.0807291642, 0)
 TextButton_11.Size = UDim2.new(0, 136, 0, 50)
 TextButton_11.Font = Enum.Font.SourceSans
-TextButton_11.Text = "hint"
+TextButton_11.Text = "idk"
 TextButton_11.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_11.TextSize = 18.000
 
@@ -1365,7 +1365,7 @@ local function RPJGEEU_fake_script() -- TextButton_7.LocalScript
 		local ReplicatedStorage = game:GetService("ReplicatedStorage")
 		local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandSilent
 	
-		RequestCommand:InvokeServer(";title me t00kshaf1y")
+		RequestCommand:InvokeServer(";titleb me t00kshaf1y")
 	end)
 end
 coroutine.wrap(RPJGEEU_fake_script)()
@@ -1417,7 +1417,7 @@ local function NOWKSPR_fake_script() -- TextButton_11.LocalScript
 		local ReplicatedStorage = game:GetService("ReplicatedStorage")
 		local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandSilent
 	
-		RequestCommand:InvokeServer(";hg team t00kshaf1y join today!!")
+		RequestCommand:InvokeServer(";music 109312105079673 ;volume inf")
 	end)
 end
 coroutine.wrap(NOWKSPR_fake_script)()
