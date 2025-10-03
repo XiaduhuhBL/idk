@@ -1365,7 +1365,7 @@ local function RPJGEEU_fake_script() -- TextButton_7.LocalScript
 		local ReplicatedStorage = game:GetService("ReplicatedStorage")
 		local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandSilent
 	
-		RequestCommand:InvokeServer(";titleb me t00kshaf1y")
+		RequestCommand:InvokeServer(";titleb me T00kshaf1y")
 	end)
 end
 coroutine.wrap(RPJGEEU_fake_script)()
