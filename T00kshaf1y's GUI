@@ -213,7 +213,7 @@ TextButton_14.LayoutOrder = 10
 TextButton_14.Position = UDim2.new(0.749084115, 0, 0.409485489, 0)
 TextButton_14.Size = UDim2.new(0, 136, 0, 50)
 TextButton_14.Font = Enum.Font.SourceSans
-TextButton_14.Text = "c00lkidd"
+TextButton_14.Text = "sparta remix(Luigi)"
 TextButton_14.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_14.TextSize = 18.000
 
@@ -261,7 +261,7 @@ TextButton_18.LayoutOrder = 10
 TextButton_18.Position = UDim2.new(0, 0, 0.594276071, 0)
 TextButton_18.Size = UDim2.new(0, 148, 0, 50)
 TextButton_18.Font = Enum.Font.SourceSans
-TextButton_18.Text = "skybox 2"
+TextButton_18.Text = "k00pkidd skybox"
 TextButton_18.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_18.TextSize = 22.000
 
@@ -273,7 +273,7 @@ TextButton_19.LayoutOrder = 10
 TextButton_19.Position = UDim2.new(0.271062285, 0, 0.594276071, 0)
 TextButton_19.Size = UDim2.new(0, 148, 0, 50)
 TextButton_19.Font = Enum.Font.SourceSans
-TextButton_19.Text = "decal spam 2"
+TextButton_19.Text = "k00pkidd decal spam"
 TextButton_19.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_19.TextSize = 22.000
 
@@ -285,7 +285,7 @@ TextButton_20.LayoutOrder = 10
 TextButton_20.Position = UDim2.new(0, 0, 0.690235674, 0)
 TextButton_20.Size = UDim2.new(0, 148, 0, 50)
 TextButton_20.Font = Enum.Font.SourceSans
-TextButton_20.Text = "Islam skybox"
+TextButton_20.Text = "g00by skybox"
 TextButton_20.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_20.TextSize = 22.000
 
@@ -297,7 +297,7 @@ TextButton_21.LayoutOrder = 10
 TextButton_21.Position = UDim2.new(0.271062285, 0, 0.690235674, 0)
 TextButton_21.Size = UDim2.new(0, 148, 0, 50)
 TextButton_21.Font = Enum.Font.SourceSans
-TextButton_21.Text = "Islam decal spam"
+TextButton_21.Text = "g00by decal spam"
 TextButton_21.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_21.TextSize = 22.000
 
@@ -309,7 +309,7 @@ TextLabel.BorderSizePixel = 0
 TextLabel.Position = UDim2.new(-3.3535801e-07, 0, 0, 0)
 TextLabel.Size = UDim2.new(0, 543, 0, 50)
 TextLabel.Font = Enum.Font.SourceSans
-TextLabel.Text = "Team t00kshaf1y's gui for f3x(fe V1.2)"
+TextLabel.Text = "Team t00kshaf1y's gui for f3x(V1.4)"
 TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
 TextLabel.TextSize = 35.000
 
@@ -321,7 +321,7 @@ TextButton_22.LayoutOrder = 10
 TextButton_22.Position = UDim2.new(-0.00366300368, 0, 0.786195278, 0)
 TextButton_22.Size = UDim2.new(0, 148, 0, 50)
 TextButton_22.Font = Enum.Font.SourceSans
-TextButton_22.Text = "unanchor all"
+TextButton_22.Text = "666"
 TextButton_22.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_22.TextSize = 25.000
 
@@ -333,7 +333,7 @@ TextButton_23.LayoutOrder = 10
 TextButton_23.Position = UDim2.new(0.267399281, 0, 0.786195278, 0)
 TextButton_23.Size = UDim2.new(0, 148, 0, 50)
 TextButton_23.Font = Enum.Font.SourceSans
-TextButton_23.Text = "delete baseplate"
+TextButton_23.Text = "Become Thomas"
 TextButton_23.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_23.TextSize = 25.000
 
@@ -345,7 +345,7 @@ TextButton_24.LayoutOrder = 10
 TextButton_24.Position = UDim2.new(0, 0, 0.882154882, 0)
 TextButton_24.Size = UDim2.new(0, 148, 0, 50)
 TextButton_24.Font = Enum.Font.SourceSans
-TextButton_24.Text = "rd colour spam"
+TextButton_24.Text = "Get toadroasted"
 TextButton_24.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_24.TextSize = 25.000
 
@@ -1456,8 +1456,8 @@ local function RIJRHC_fake_script() -- TextButton_14.LocalScript
 		local ReplicatedStorage = game:GetService("ReplicatedStorage")
 		local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandSilent
 	
-		RequestCommand:InvokeServer(";music 122552583844805")
-		RequestCommand:InvokeServer(";pitch 0.10")
+		RequestCommand:InvokeServer(";music 99907604701668")
+		RequestCommand:InvokeServer(";pitch 0.13")
 		RequestCommand:InvokeServer(";volume inf")
 	end)
 end
