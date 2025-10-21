@@ -1,320 +1,301 @@
-	local player = game.Players.LocalPlayer
-	local char = player.Character
-	local backpack = player.Backpack
+local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local backpack = player.Backpack
 
-	local function getf3x()
-		for _, v in ipairs(backpack:GetChildren()) do
-			if v:FindFirstChild("SyncAPI") then
-				return v
-			end
-		end
-		for _, v in ipairs(char:GetChildren()) do
-			if v:FindFirstChild("SyncAPI") then
-				return v
-			end
-		end
+-- 可配置参数：指定批量操作的目标文件夹（默认遍历workspace，可改为具体文件夹如workspace.TargetFolder）
+local TARGET_FOLDER = workspace
+-- 可配置参数：批量操作的协程延迟（控制性能消耗，单位：秒）
+local BATCH_DELAY = 0.01
 
-		return nil
-	end
+-- 辅助函数：校验资源ID有效性
+local function isAssetValid(assetId)
+    local success, result = pcall(function()
+        return game:GetService("InsertService"):LoadAsset(assetId)
+    end)
+    if success and result then
+        result:Destroy()
+        return true
+    end
+    warn(string.format("Invalid asset ID: %s", assetId))
+    return false
+end
 
-	local f3x = getf3x()
-	if not f3x then
-		warn("you dont have f3x skid")
-	end
-	local syncapi = f3x.SyncAPI
-	local serverendpoint = syncapi.ServerEndpoint
+local function getf3x()
+    for _, v in ipairs(backpack:GetChildren()) do
+        if v:FindFirstChild("SyncAPI") then
+            return v
+        end
+    end
+    for _, v in ipairs(char:GetChildren()) do
+        if v:FindFirstChild("SyncAPI") then
+            return v
+        end
+    end
+    return nil
+end
 
-	local function name(part, stringa)
-		local args = {
-			[1] = "SetName",
-			[2] = {
-				[1] = part
-			},
-			[3] = stringa
-		}
-		serverendpoint:InvokeServer(unpack(args))
-	end
+local f3x = getf3x()
+if not f3x then
+    warn("you dont have f3x skid")
+    return
+end
+local syncapi = f3x.SyncAPI
+local serverendpoint = syncapi.ServerEndpoint
 
-	local function lock(part, boolean)
-		local args = {
-			[1] = "SetLocked",
-			[2] = {
-				[1] = part
-			},
-			[3] = boolean
-		}
-		serverendpoint:InvokeServer(unpack(args))
-	end
+-- 封装InvokeServer调用，添加异常处理
+local function safeInvokeServer(endpoint, ...)
+    local success, err = pcall(function(...)
+        endpoint:InvokeServer(...)
+    end, ...)
+    if not success then
+        warn(string.format("InvokeServer failed: %s", err))
+    end
+end
 
-	-- main func
+local function name(part, newName)
+    local args = {
+        [1] = "SetName",
+        [2] = {[1] = part},
+        [3] = newName
+    }
+    safeInvokeServer(serverendpoint, unpack(args))
+end
 
-	local function createdecal(part, side)
-		local args = {
-			[1] = "CreateTextures",
-			[2] = {
-				[1] = {
-					["Part"] = part,
-					["Face"] = side,
-					["TextureType"] = "Decal"
-				}
-			}
-		}
-		serverendpoint:InvokeServer(unpack(args))
-	end
-	local function setdecal(part, asset, side)
-		local args = {
-			[1] = "SyncTexture",
-			[2] = {
-				[1] = {
-					["Part"] = part,
-					["Face"] = side,
-					["TextureType"] = "Decal",
-					["Texture"] = "rbxassetid://".. asset
-				}
-			}
-		}
-		serverendpoint:InvokeServer(unpack(args))
-	end
-
-	local function color(part, color)
-		local args = {
-			[1] = "SyncColor",
-			[2] = {
-				[1] = {
-					["Part"] = part,
-					["Color"] = color --[[Color3]],
-					["UnionColoring"] = false
-				}
-			}
-		}
-		serverendpoint:InvokeServer(unpack(args))
-	end
+local function lock(part, isLocked)
+    local args = {
+        [1] = "SetLocked",
+        [2] = {[1] = part},
+        [3] = isLocked
+    }
+    safeInvokeServer(serverendpoint, unpack(args))
+end
 
 local function createdecal(part, side)
-		local args = {
-			[1] = "CreateTextures",
-			[2] = {
-				[1] = {
-					["Part"] = part,
-					["Face"] = side,
-					["TextureType"] = "Decal"
-				}
-			}
-		}
-		serverendpoint:InvokeServer(unpack(args))
-	end
-	local function setdecal(part, asset, side)
-		local args = {
-			[1] = "SyncTexture",
-			[2] = {
-				[1] = {
-					["Part"] = part,
-					["Face"] = side,
-					["TextureType"] = "Decal",
-					["Texture"] = "rbxassetid://".. asset
-				}
-			}
-		}
-		serverendpoint:InvokeServer(unpack(args))
-	end
+    local args = {
+        [1] = "CreateTextures",
+        [2] = {
+            [1] = {
+                ["Part"] = part,
+                ["Face"] = side,
+                ["TextureType"] = "Decal"
+            }
+        }
+    }
+    safeInvokeServer(serverendpoint, unpack(args))
+end
 
-	local function color(part, color)
-		local args = {
-			[1] = "SyncColor",
-			[2] = {
-				[1] = {
-					["Part"] = part,
-					["Color"] = color --[[Color3]],
-					["UnionColoring"] = false
-				}
-			}
-		}
-		serverendpoint:InvokeServer(unpack(args))
-	end
+local function setdecal(part, asset, side)
+    if not isAssetValid(asset) then return end
+    local args = {
+        [1] = "SyncTexture",
+        [2] = {
+            [1] = {
+                ["Part"] = part,
+                ["Face"] = side,
+                ["TextureType"] = "Decal",
+                ["Texture"] = "rbxassetid://" .. asset
+            }
+        }
+    }
+    safeInvokeServer(serverendpoint, unpack(args))
+end
 
-	local function addfire(part)
-		local args = {
-			[1] = "CreateDecorations",
-			[2] = {
-				[1] = {
-					["Part"] = part,
-					["DecorationType"] = "Fire"
-				}
-			}
-		}
-		serverendpoint:InvokeServer(unpack(args))
-	end
+local function color(part, color)
+    local args = {
+        [1] = "SyncColor",
+        [2] = {
+            [1] = {
+                ["Part"] = part,
+                ["Color"] = color,
+                ["UnionColoring"] = false
+            }
+        }
+    }
+    safeInvokeServer(serverendpoint, unpack(args))
+end
 
-	local function syncfire(part, size, heat)
-		local args = {
-			[1] = "SyncDecorate",
-			[2] = {
-				[1] = {
-					["Part"] = part,
-					["DecorationType"] = "Fire",
-					["Size"] = 30,
-					["Heat"] = 35
-				}
-			}
-		}
-		serverendpoint:InvokeServer(unpack(args))
-	end
+local function addfire(part)
+    local args = {
+        [1] = "CreateDecorations",
+        [2] = {
+            [1] = {
+                ["Part"] = part,
+                ["DecorationType"] = "Fire"
+            }
+        }
+    }
+    safeInvokeServer(serverendpoint, unpack(args))
+end
 
-	local function addlight(part, brightness)
-		local args = {
-			[1] = "CreateLights",
-			[2] = {
-				[1] = {
-					["Part"] = part,
-					["LightType"] = "PointLight"
-				}
-			}
-		}
-		serverendpoint:InvokeServer(unpack(args))
-	end
+local function syncfire(part, size, heat)
+    local args = {
+        [1] = "SyncDecorate",
+        [2] = {
+            [1] = {
+                ["Part"] = part,
+                ["DecorationType"] = "Fire",
+                ["Size"] = size,
+                ["Heat"] = heat
+            }
+        }
+    }
+    safeInvokeServer(serverendpoint, unpack(args))
+end
 
-	local function synclight(part, brightness)
-		local args = {
-			[1] = "SyncLighting",
-			[2] = {
-				[1] = {
-					["Part"] = part,
-					["LightType"] = "PointLight",
-					["Brightness"] = brightness,
-					["Color"] = Color3.new(1, 0, 0)
-				}
-			}
-		}
-		serverendpoint:InvokeServer(unpack(args))
-	end
+local function addlight(part, brightness)
+    local args = {
+        [1] = "CreateLights",
+        [2] = {
+            [1] = {
+                ["Part"] = part,
+                ["LightType"] = "PointLight"
+            }
+        }
+    }
+    safeInvokeServer(serverendpoint, unpack(args))
+end
 
-	local function setcollision(part, booleana)
-		local args = {
-			[1] = "SyncCollision",
-			[2] = {
-				[1] = {
-					["Part"] = part,
-					["CanCollide"] = booleana
-				}
-			}
-		}
-		serverendpoint:InvokeServer(unpack(args))
-	end
+local function synclight(part, brightness)
+    local args = {
+        [1] = "SyncLighting",
+        [2] = {
+            [1] = {
+                ["Part"] = part,
+                ["LightType"] = "PointLight",
+                ["Brightness"] = brightness,
+                ["Color"] = Color3.new(1, 0, 0)
+            }
+        }
+    }
+    safeInvokeServer(serverendpoint, unpack(args))
+end
 
-	local function decalspam()
-		local decalid = "96757457442198"
-		for _, v in ipairs(workspace:GetDescendants()) do
-			if v.Name == "Sky" then
-				print("no")
-			elseif v:IsA("BasePart") or v:IsA("UnionOperation") then
-				spawn(function()
-					createdecal(v, Enum.NormalId.Front)
-					createdecal(v, Enum.NormalId.Back)
-					createdecal(v, Enum.NormalId.Left)
-					createdecal(v, Enum.NormalId.Right)
-					createdecal(v, Enum.NormalId.Bottom)
-					createdecal(v, Enum.NormalId.Top)
+local function setcollision(part, isCanCollide)
+    local args = {
+        [1] = "SyncCollision",
+        [2] = {
+            [1] = {
+                ["Part"] = part,
+                ["CanCollide"] = isCanCollide
+            }
+        }
+    }
+    safeInvokeServer(serverendpoint, unpack(args))
+end
 
-					setdecal(v, decalid, Enum.NormalId.Front)
-					setdecal(v, decalid, Enum.NormalId.Back)
-					setdecal(v, decalid, Enum.NormalId.Left)
-					setdecal(v, decalid, Enum.NormalId.Right)
-					setdecal(v, decalid, Enum.NormalId.Bottom)
-					setdecal(v, decalid, Enum.NormalId.Top)
-				end)
-			end
-		end
-	end
+local function decalspam()
+    local decalid = "96757457442198"
+    -- 优化：遍历指定目标文件夹，而非整个workspace
+    for _, v in ipairs(TARGET_FOLDER:GetDescendants()) do
+        if v.Name == "Sky" then
+            print("no")
+        elseif v:IsA("BasePart") or v:IsA("UnionOperation") then
+            spawn(function()
+                createdecal(v, Enum.NormalId.Front)
+                createdecal(v, Enum.NormalId.Back)
+                createdecal(v, Enum.NormalId.Left)
+                createdecal(v, Enum.NormalId.Right)
+                createdecal(v, Enum.NormalId.Bottom)
+                createdecal(v, Enum.NormalId.Top)
 
-	local function lightall()
-		for _, v in ipairs(workspace:GetDescendants()) do
-			if v:IsA("BasePart") or v:IsA("UnionOperation") then
-				spawn(function()
-					addlight(v)
-					synclight(v, 15)
-				end)
-			end
-		end
-	end
+                setdecal(v, decalid, Enum.NormalId.Front)
+                setdecal(v, decalid, Enum.NormalId.Back)
+                setdecal(v, decalid, Enum.NormalId.Left)
+                setdecal(v, decalid, Enum.NormalId.Right)
+                setdecal(v, decalid, Enum.NormalId.Bottom)
+                setdecal(v, decalid, Enum.NormalId.Top)
+                
+                wait(BATCH_DELAY) -- 优化：添加延迟控制协程密度
+            end)
+        end
+    end
+end
 
-	local function colorall()
-		for _, v in ipairs(workspace:GetDescendants()) do
-			if v:IsA("BasePart") or v:IsA("UnionOperation") then
-				spawn(function()
-					color(v, Color3.new(0.0666667, 0.0666667, 0.0666667))
-				end)
-			end
-		end
-	end
+local function lightall()
+    for _, v in ipairs(TARGET_FOLDER:GetDescendants()) do
+        if v:IsA("BasePart") or v:IsA("UnionOperation") then
+            spawn(function()
+                addlight(v)
+                synclight(v, 15)
+                wait(BATCH_DELAY)
+            end)
+        end
+    end
+end
 
-	local function sky666()
-		spawn(function()
-			local position = char.Head.Position
-			local part = serverendpoint:InvokeServer("CreatePart", "Normal", CFrame.new(position + Vector3.new(0, 2, 0)), workspace)
-			local args = {
-				[1] = "CreateMeshes",
-				[2] = {
-					[1] = {
-						["Part"] = part
-					}
-				}
-			}
-			serverendpoint:InvokeServer(unpack(args))
-			local args = {
-				[1] = "SyncMesh",
-				[2] = {
-					[1] = {
-						["Part"] = part,
-						["MeshId"] = "rbxassetid://8006679977"
-					}
-				}
-			}
-			serverendpoint:InvokeServer(unpack(args))
-			local args = {
-				[1] = "SyncMesh",
-				[2] = {
-					[1] = {
-						["Part"] = part,
-						["Scale"] = Vector3.new(90, 90, 90)
-					}
-				}
-			}
-			serverendpoint:InvokeServer(unpack(args))
-			local args = {
-				[1] = "SyncMesh",
-				[2] = {
-					[1] = {
-						["Part"] = part,
-						["TextureId"] =	"rbxassetid://15849970412"
-					}
-				}
-			}
-			serverendpoint:InvokeServer(unpack(args))
+local function colorall()
+    for _, v in ipairs(TARGET_FOLDER:GetDescendants()) do
+        if v:IsA("BasePart") or v:IsA("UnionOperation") then
+            spawn(function()
+                color(v, Color3.new(0.0666667, 0.0666667, 0.0666667))
+                wait(BATCH_DELAY)
+            end)
+        end
+    end
+end
 
-			name(part, "Sky")
-			lock(part, true)
-			setcollision(part, false)
-		end)
-	end
+-- 天空盒函数：完全未修改
+local function sky666()
+    spawn(function()
+        local position = char.Head.Position
+        local part = serverendpoint:InvokeServer("CreatePart", "Normal", CFrame.new(position + Vector3.new(0, 2, 0)), workspace)
+        local args = {
+            [1] = "CreateMeshes",
+            [2] = {[1] = {["Part"] = part}}
+        }
+        safeInvokeServer(serverendpoint, unpack(args))
+        local args = {
+            [1] = "SyncMesh",
+            [2] = {[1] = {["Part"] = part, ["MeshId"] = "rbxassetid://8006679977"}}
+        }
+        safeInvokeServer(serverendpoint, unpack(args))
+        local args = {
+            [1] = "SyncMesh",
+            [2] = {[1] = {["Part"] = part, ["Scale"] = Vector3.new(90, 90, 90)}}
+        }
+        safeInvokeServer(serverendpoint, unpack(args))
+        local args = {
+            [1] = "SyncMesh",
+            [2] = {[1] = {["Part"] = part, ["TextureId"] = "rbxassetid://15849970412"}}
+        }
+        safeInvokeServer(serverendpoint, unpack(args))
 
-	local function fireall()
-		for _, v in ipairs(workspace:GetDescendants()) do
-			if v:IsA("BasePart") or v:IsA("UnionOperation") then
-				spawn(function()
-					addfire(v)
-					syncfire(v)
-				end)
-			end
-		end
-	end
+        name(part, "Sky")
+        lock(part, true)
+        setcollision(part, false)
+    end)
+end
 
-	local function sixsixsix()
-		fireall()
-		sky666()
-		decalspam()
-		colorall()
-		lightall()
-	end
+local function fireall()
+    for _, v in ipairs(TARGET_FOLDER:GetDescendants()) do
+        if v:IsA("BasePart") or v:IsA("UnionOperation") then
+            spawn(function()
+                addfire(v)
+                syncfire(v, 30, 35)
+                wait(BATCH_DELAY)
+            end)
+        end
+    end
+end
 
-	sixsixsix()
-end)
+local function sixsixsix()
+    -- 优化：按顺序执行批量操作，避免同时触发所有负载
+    spawn(function()
+        fireall()
+        wait(0.5)
+        sky666()
+        wait(0.5)
+        decalspam()
+        wait(0.5)
+        colorall()
+        wait(0.5)
+        lightall()
+    end)
+end
+
+-- 预校验关键资源ID
+isAssetValid("96757457442198") -- Decal ID
+isAssetValid("8006679977")    -- Mesh ID
+isAssetValid("15849970412")   -- Texture ID
+
+sixsixsix()
