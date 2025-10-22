@@ -2660,7 +2660,7 @@ local function OSDJX_fake_script() -- TextButton_24.LocalScript
 	
 	button.MouseButton1Click:Connect(function()
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/XiaduhuhBL/idk/c7aa3131b8514792ce33c8fd8531bae43ee5dbb9/get"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/XiaduhuhBL/idk/121ee78506c00ab43232914960bc1aa4742992d3/get"))()
 
 	end)
 end
@@ -3267,7 +3267,7 @@ local function KHKMXF_fake_script() -- TextButton_29.LocalScript
 				end
 			end
 		end
-		Sky("98161972268770")
+		Sky("118953088842031")
 	end)
 end
 coroutine.wrap(KHKMXF_fake_script)()
@@ -3548,7 +3548,7 @@ local function VGFO_fake_script() -- TextButton_30.LocalScript
 				end
 			end 
 		end
-		spam("98161972268770")
+		spam("118953088842031")
 	end)
 end
 coroutine.wrap(VGFO_fake_script)()
