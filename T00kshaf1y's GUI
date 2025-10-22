@@ -261,7 +261,7 @@ TextButton_18.LayoutOrder = 10
 TextButton_18.Position = UDim2.new(0, 0, 0.594276071, 0)
 TextButton_18.Size = UDim2.new(0, 148, 0, 50)
 TextButton_18.Font = Enum.Font.SourceSans
-TextButton_18.Text = "k00pkidd skybox"
+TextButton_18.Text = "k00p skybox"
 TextButton_18.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_18.TextSize = 22.000
 
@@ -273,7 +273,7 @@ TextButton_19.LayoutOrder = 10
 TextButton_19.Position = UDim2.new(0.271062285, 0, 0.594276071, 0)
 TextButton_19.Size = UDim2.new(0, 148, 0, 50)
 TextButton_19.Font = Enum.Font.SourceSans
-TextButton_19.Text = "k00pkidd decal spam"
+TextButton_19.Text = "k00p decal spam"
 TextButton_19.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_19.TextSize = 22.000
 
@@ -405,7 +405,7 @@ TextButton_29.LayoutOrder = 10
 TextButton_29.Position = UDim2.new(0.564102471, 0, 0.811447799, 0)
 TextButton_29.Size = UDim2.new(0, 136, 0, 50)
 TextButton_29.Font = Enum.Font.SourceSans
-TextButton_29.Text = "skybox 3"
+TextButton_29.Text = "skybox 2"
 TextButton_29.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_29.TextSize = 22.000
 
@@ -417,7 +417,7 @@ TextButton_30.LayoutOrder = 10
 TextButton_30.Position = UDim2.new(0.564102471, 0, 0.895622909, 0)
 TextButton_30.Size = UDim2.new(0, 136, 0, 50)
 TextButton_30.Font = Enum.Font.SourceSans
-TextButton_30.Text = "decal spam 3"
+TextButton_30.Text = "decal spam 2"
 TextButton_30.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_30.TextSize = 22.000
 
@@ -817,7 +817,7 @@ local function QBMLVC_fake_script() -- TextButton_3.LocalScript
 				end
 			end
 		end
-		Sky("118953088842031")
+		Sky("111744606274727")
 	end)
 end
 coroutine.wrap(QBMLVC_fake_script)()
@@ -1098,7 +1098,7 @@ local function KDIOV_fake_script() -- TextButton_4.LocalScript
 				end
 			end 
 		end
-		spam("118953088842031")
+		spam("111744606274727")
 	end)
 end
 coroutine.wrap(KDIOV_fake_script)()
