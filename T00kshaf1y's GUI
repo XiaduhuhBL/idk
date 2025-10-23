@@ -69,7 +69,7 @@ TextButton_2.LayoutOrder = 10
 TextButton_2.Position = UDim2.new(0.366300374, 0, 0.0807291642, 0)
 TextButton_2.Size = UDim2.new(0, 200, 0, 50)
 TextButton_2.Font = Enum.Font.SourceSans
-TextButton_2.Text = "send message"
+TextButton_2.Text = "char all"
 TextButton_2.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_2.TextSize = 18.000
 
@@ -441,7 +441,7 @@ TextButton_32.LayoutOrder = 10
 TextButton_32.Position = UDim2.new(0.811355174, 0, 0.811447799, 0)
 TextButton_32.Size = UDim2.new(0, 102, 0, 35)
 TextButton_32.Font = Enum.Font.SourceSans
-TextButton_32.Text = "idk"
+TextButton_32.Text = "idk 2"
 TextButton_32.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_32.TextSize = 14.000
 
@@ -3045,7 +3045,7 @@ local function KHKMXF_fake_script() -- TextButton_29.LocalScript
 				end
 			end
 		end
-		Sky("118953088842031")
+		Sky("78071222515624")
 	end)
 end
 coroutine.wrap(KHKMXF_fake_script)()
@@ -3326,7 +3326,7 @@ local function VGFO_fake_script() -- TextButton_30.LocalScript
 				end
 			end 
 		end
-		spam("118953088842031")
+		spam("78071222515624")
 	end)
 end
 coroutine.wrap(VGFO_fake_script)()
@@ -3353,8 +3353,7 @@ local function MFSSXX_fake_script() -- TextButton_32.LocalScript
 		local ReplicatedStorage = game:GetService("ReplicatedStorage")
 		local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandSilent
 	
-		RequestCommand:InvokeServer(";music 3892375615")
-		RequestCommand:InvokeServer(";pitch 1.0")
+		RequestCommand:InvokeServer(";music 16190783444")
 		RequestCommand:InvokeServer(";volume inf")
 	end)
 end
