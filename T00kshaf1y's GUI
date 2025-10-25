@@ -429,7 +429,7 @@ TextButton_31.LayoutOrder = 10
 TextButton_31.Position = UDim2.new(0.749084115, 0, 0.744107723, 0)
 TextButton_31.Size = UDim2.new(0, 136, 0, 40)
 TextButton_31.Font = Enum.Font.SourceSans
-TextButton_31.Text = "whistle"
+TextButton_31.Text = "g00byd0lan"
 TextButton_31.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_31.TextSize = 14.000
 
@@ -1221,8 +1221,7 @@ local function AJZP_fake_script() -- TextButton_13.LocalScript
 		local ReplicatedStorage = game:GetService("ReplicatedStorage")
 		local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandSilent
 	
-		RequestCommand:InvokeServer(";music 1847661821")
-		RequestCommand:InvokeServer(";pitch 0.9")
+		RequestCommand:InvokeServer(";music 1839272148")
 		RequestCommand:InvokeServer(";volume inf")
 	end)
 end
@@ -3341,7 +3340,7 @@ local function SCAOU_fake_script() -- TextButton_31.LocalScript
 		local ReplicatedStorage = game:GetService("ReplicatedStorage")
 		local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandSilent
 	
-		RequestCommand:InvokeServer(";music 3152833592")
+		RequestCommand:InvokeServer(";music 1847661821")
 		RequestCommand:InvokeServer(";volume inf")
 	end)
 end
